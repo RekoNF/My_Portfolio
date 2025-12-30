@@ -473,4 +473,13 @@ h1{
         font-size: 24px;
         padding: 0 15px;
     }
+    .text-logo{
+        font-family: var(--font-family);
+        font-weight: var(--font-weight-bold);
+        font-size: 24px;
+        color: var(--text-color);
+        text-align: left;
+        display: flex;
+        margin-left: 0;
+    }
 }
