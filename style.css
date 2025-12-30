@@ -5,6 +5,8 @@
     --secondary-color:#EBF4DD;
     --bg-color:#EBF4DD;
     --text-color:#3B4953;
+    /* Approximate space taken by the navbar/header - adjusted per breakpoint below */
+    --navbar-offset: 120px;
     --super-large:48px;
     --large:24px;
     --medium:12px;
@@ -25,6 +27,7 @@ body{
     background-color: #90AB8B;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 /* Prevent scrolling when menu is open */
@@ -161,7 +164,8 @@ body.menu-open {
             Hero Section
 ===========================================*/
 .hero{
-    min-height: 85vh;
+    /* Make hero fit the remaining viewport below the navbar so it won't be cut off */
+    min-height: calc(100vh - var(--navbar-offset));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,6 +280,10 @@ h1{
             MOBILE RESPONSIVE
 ===========================================*/
 @media(max-width: 768px){
+    /* Reduce the navbar offset on tablet/mobile-sized screens */
+    :root {
+        --navbar-offset: 100px;
+    }
     /* Show hamburger button on mobile */
     .nav-toggle { 
         display: flex;
@@ -433,6 +441,10 @@ h1{
 }
 
 @media(max-width: 480px){
+    /* Smaller devices have smaller header area */
+    :root {
+        --navbar-offset: 80px;
+    }
     .navbar-container {
         padding: var(--large-padding);
         margin: var(--large-padding);
@@ -457,6 +469,9 @@ h1{
     }
 }
 @media (max-width: 360px) {
+    :root {
+        --navbar-offset: 70px;
+    }
     .navbar-container {
         padding: var(--medium-padding);
         margin: var(--medium-padding);
