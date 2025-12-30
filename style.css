@@ -5,8 +5,6 @@
     --secondary-color:#EBF4DD;
     --bg-color:#EBF4DD;
     --text-color:#3B4953;
-    /* Approximate space taken by the navbar/header - adjusted per breakpoint below */
-    --navbar-offset: 120px;
     --super-large:48px;
     --large:24px;
     --medium:12px;
@@ -27,7 +25,6 @@ body{
     background-color: #90AB8B;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 /* Prevent scrolling when menu is open */
@@ -164,8 +161,7 @@ body.menu-open {
             Hero Section
 ===========================================*/
 .hero{
-    /* Make hero fit the remaining viewport below the navbar so it won't be cut off */
-    min-height: calc(100vh - var(--navbar-offset));
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -458,29 +454,5 @@ h1{
     h1 {
         font-size: 24px;
         padding: 0 15px;
-    }
-}
-@media (max-width: 360px) {
-    .navbar-container {
-        padding: var(--medium-padding);
-        margin: var(--medium-padding);
-        border: 15px solid var(--text-color);
-        border-width: 4px;
-    }
-
-    .navbar-container.nav-open .logo {
-        position: fixed;
-        max-width: 35px;
-        margin-top: 55px;
-        padding: 5px;
-        border-radius: 8px;
-        z-index: 2600;
-        animation: slideInMenu 0.4s ease forwards;
-        opacity: 0;
-    }
-
-    h1 {
-        font-size: 20px;
-        padding: 0 10px;
     }
 }
