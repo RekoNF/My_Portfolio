@@ -19,6 +19,7 @@
     --font-weight-medium: 500;
     --font-weight-bold: 700;
     --font-weight-extrabold: 800;
+    --gradiant-primary: linear-gradient(to top, #505285 0%, #585e92 12%, #65689f 25%, #7474b0 37%, #7e7ebb 50%, #8389c7 62%, #9795d4 75%, #a2a1dc 87%, #b5aee4 100%);
 }
 
 body{
@@ -41,8 +42,7 @@ body.menu-open {
     display: flex;
     z-index: 2200;
     justify-content: space-between;
-    background: transparent;
-    border: 10px solid var(--text-color);
+    border: 10px solid transparent;
     border-radius: var(--large);
     padding: var(--large-padding);
     margin: var(--large-padding);
@@ -161,11 +161,11 @@ body.menu-open {
             Hero Section
 ===========================================*/
 .hero{
-    min-height: 85vh;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--text-color);
+    background-image: transparent;
     border-radius: var(--large-padding);
     margin: var(--large-padding);
 }
@@ -245,6 +245,7 @@ h1{
     width: 35px;
     height: 35px;
     fill: currentColor;
+    color: var(--text-color);
 }
 
 .style-icon-hero:hover {
@@ -275,7 +276,7 @@ h1{
 /*=========================================
             MOBILE RESPONSIVE
 ===========================================*/
-@media(max-width: 768px){
+@media(max-width: 768px ){
     /* Show hamburger button on mobile */
     .nav-toggle { 
         display: flex;
@@ -436,7 +437,7 @@ h1{
     .navbar-container {
         padding: var(--large-padding);
         margin: var(--large-padding);
-        border: 20px solid var(--text-color);
+        border: 20px solid transparent;
         border-width: 5px;
     }
 
