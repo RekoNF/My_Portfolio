@@ -280,10 +280,6 @@ h1{
             MOBILE RESPONSIVE
 ===========================================*/
 @media(max-width: 768px){
-    /* Reduce the navbar offset on tablet/mobile-sized screens */
-    :root {
-        --navbar-offset: 100px;
-    }
     /* Show hamburger button on mobile */
     .nav-toggle { 
         display: flex;
@@ -441,10 +437,6 @@ h1{
 }
 
 @media(max-width: 480px){
-    /* Smaller devices have smaller header area */
-    :root {
-        --navbar-offset: 80px;
-    }
     .navbar-container {
         padding: var(--large-padding);
         margin: var(--large-padding);
@@ -469,9 +461,6 @@ h1{
     }
 }
 @media (max-width: 360px) {
-    :root {
-        --navbar-offset: 70px;
-    }
     .navbar-container {
         padding: var(--medium-padding);
         margin: var(--medium-padding);
