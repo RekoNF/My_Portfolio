@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root{
-    --primary-color:#90AB8B;
-    --secondary-color:#EBF4DD;
-    --bg-color:#EBF4DD;
-    --text-color:#3B4953;
+    --primary-color:#FD7014;
+    --secondary-color:#EEEEEE;
+    --bg-color:#393E46;
+    --text-color:#FD7014;
     --super-large:48px;
     --large:24px;
     --medium:12px;
@@ -23,7 +23,7 @@
 }
 
 body{
-    background-color: #90AB8B;
+    background-color: #222831;
     margin: 0;
     padding: 0;
 }
@@ -36,6 +36,10 @@ body.menu-open {
 /*=========================================
             Navbar Section (Desktop)
 ===========================================*/
+
+header{
+    position: sticky;
+}
 .navbar-container{
     position: sticky;
     top: 0;
@@ -162,10 +166,6 @@ body.menu-open {
 }
 
 /*=========================================
-            Button Styles
-===========================================*/
-
-/*=========================================
             Hero Section
 ===========================================*/
 .hero{
@@ -264,7 +264,7 @@ h1{
             About Section
 ===========================================*/
 .about-section {
-    min-height: 50vh;
+    min-height: 100vh;
     padding: var(--super-large-padding);
     margin: var(--large-padding);
 }
