@@ -2,30 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeYear();
     setupNavigation();
     initializeTyped();
+    initScrollAnimations(); // Tambahkan ini
 
-    // ===== FIXED: Toggle menu hamburger =====
+    // ===== Toggle menu hamburger =====
     const navToggle = document.querySelector('.nav-toggle');
     const navbarContainer = document.querySelector('.navbar-container');
     const navMenu = document.querySelector('.nav-menu');
 
     if (navToggle && navbarContainer && navMenu) {
-        // Toggle menu saat tombol hamburger diklik
         navToggle.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Toggle class nav-open pada navbar-container
             const isOpen = navbarContainer.classList.toggle('nav-open');
-            
-            // Toggle class menu-open pada body
             document.body.classList.toggle('menu-open', isOpen);
-            
-            // Update aria-expanded untuk accessibility
             this.setAttribute('aria-expanded', String(isOpen));
-            
-            console.log('Menu toggled:', isOpen); // Debug log
         });
 
-        // Tutup menu saat klik link navigasi (untuk mobile)
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', function() {
                 navbarContainer.classList.remove('nav-open');
@@ -34,9 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Tutup menu saat klik di luar (jika ada overlay)
         document.addEventListener('click', function(event) {
-            // Jika menu terbuka dan klik di luar navbar
             if (navbarContainer.classList.contains('nav-open') && 
                 !navbarContainer.contains(event.target)) {
                 navbarContainer.classList.remove('nav-open');
@@ -45,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Tutup menu dengan tombol ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navbarContainer.classList.contains('nav-open')) {
                 navbarContainer.classList.remove('nav-open');
@@ -78,7 +66,6 @@ function setupNavigation() {
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             this.classList.add('active');
 
-            // Tutup mobile nav setelah klik
             closeNav();
         });
     });
@@ -157,16 +144,82 @@ function initializeTyped() {
     });
 }
 
-/* =====4. ANIMATION FUNCTIONS===== */
-const observer = new IntersectionObserver((entries)=>{
-    entries.forEach((entry)=>{
-        if(entry.isIntersecting){
-            console.log(entry.target);
-            entry.target.classList.add("visible");
-        }else{
-            entry.target.classList.remove("visible");
+/* =====4. BIDIRECTIONAL FADE ANIMATION===== */
+function initScrollAnimations() {
+    // Konfigurasi observer dengan threshold yang lebih baik
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '-100px 0px -100px 0px', // Top & bottom margin
+        threshold: [0, 0.1, 0.5, 0.9, 1] // Multiple thresholds untuk deteksi lebih akurat
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const section = entry.target;
+            const sectionId = section.id || section.className;
+
+            if (entry.isIntersecting) {
+                // Section masuk viewport - FADE IN
+                setTimeout(() => {
+                    section.classList.add('visible');
+                    section.classList.remove('hidden');
+                    console.log('✅ Fade IN:', sectionId, '| Ratio:', entry.intersectionRatio.toFixed(2));
+                }, 50);
+            } else {
+                // Section keluar viewport - FADE OUT
+                section.classList.remove('visible');
+                section.classList.add('hidden');
+                console.log('❌ Fade OUT:', sectionId);
+            }
+        });
+    }, observerOptions);
+
+    // Pilih section yang akan dianimasi
+    const animatedSections = document.querySelectorAll('section[id]');
+    
+    animatedSections.forEach((section) => {
+        // Set initial state
+        section.classList.remove('visible');
+        observer.observe(section);
+    });
+
+    console.log(`🎬 Observing ${animatedSections.length} sections with bidirectional fade`);
+}
+
+/* =====5. ALTERNATIVE: SCROLL EVENT (Fallback)=====*/
+function initScrollAnimationsFallback() {
+    let ticking = false;
+    
+    function checkSections() {
+        const sections = document.querySelectorAll('section[id]');
+        const triggerBottom = window.innerHeight * 0.85; // 85% dari viewport
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if (sectionTop < triggerBottom) {
+                section.classList.add('visible');
+            }
+        });
+        
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                checkSections();
+                ticking = false;
+            });
+            ticking = true;
         }
-    })
-}, {})
-const todoElements = document.querySelectorAll("section");
-todoElements.forEach(el => observer.observe(el));
+    });
+
+    // Check on load
+    checkSections();
+}
+
+/* =====6. CHOOSE ANIMATION METHOD===== */
+// Uncomment salah satu method di bawah ini di DOMContentLoaded:
+// - initScrollAnimations() untuk Intersection Observer (recommended)
+// - initScrollAnimationsFallback() untuk scroll event (fallback)

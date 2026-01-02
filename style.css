@@ -26,6 +26,7 @@ body{
     background-color: #222831;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 /* Prevent scrolling when menu is open */
@@ -33,46 +34,243 @@ body.menu-open {
     overflow: hidden;
 }
 
-section{
-    opacity: 0;
-    transition: 600ms ease;
+/*=========================================
+                H 1,2,3,4 styles
+===========================================*/
+
+h1{
+    font-family: var(--font-family);
+    font-size: 48px;
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
 }
-section.visible{
-    opacity: 1;
+h2{
+    font-family: var(--font-family);
+    font-size: 36px;
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+h3{
+    font-family: var(--font-family);
+    font-size: 28px;
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+h4{
+    font-family: var(--font-family);
+    font-size: 24px;
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
 }
 
 /*=========================================
                 key frames
 ===========================================*/
-@keyframes appear{
-    from{
-        opacity: 0;
-        scale: 0.5;
-    }
-    to{
-        opacity : 1;
-        scale: 1;
-    }
-}
-/*  animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-    */
-@keyframes autro{
-    from{
-        opacity: 1;
-        scale: 1;
-    }
-    to{
-        opacity : 0;
-        scale: 0.5;
-    }
-/*  animation: outro linear;
-    animation-timeline: view();
-    animation-range: entry 0;
-    */
+/* ===== BIDIRECTIONAL FADE ANIMATION ===== */
+
+/* Initial state - hidden */
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, 
+                transform 0.6s ease-out;
+    will-change: opacity, transform; /* Optimize performance */
 }
 
+/* Visible state - fully shown (scroll down/up into view) */
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hidden state - fade out (scroll past section) */
+section.hidden {
+    opacity: 0;
+    transform: translateY(-20px); /* Slight upward movement when fading out */
+    transition: opacity 0.5s ease-in, 
+                transform 0.5s ease-in;
+}
+
+/* Alternative: Fade + Scale Effect */
+section.scale-animation {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease-out, 
+                transform 0.6s ease-out;
+}
+
+section.scale-animation.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Alternative: Slide from sides */
+section.slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.7s ease-out, 
+                transform 0.7s ease-out;
+}
+
+section.slide-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+section.slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.7s ease-out, 
+                transform 0.7s ease-out;
+}
+
+section.slide-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ===== SPECIALIZED BIDIRECTIONAL ANIMATIONS FOR SPECIFIC SECTIONS ===== */
+
+/* Hero Section - Fade in/out */
+
+.about-section, .portfolio-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.3s ease-out, 
+                transform 0.3s ease-out;
+}
+.about-section.visible, .portfolio-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.about-section.hidden, .portfolio-section.hidden {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.2s ease-in, 
+                transform 0.2s ease-in;
+}
+
+.hero {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease-out, 
+                transform 0.6s ease-out;
+}
+
+.hero.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.hero.hidden {
+    opacity: 0;
+    transform: scale(0.95) translateY(-30px);
+    transition: opacity 0.5s ease-in, 
+                transform 0.5s ease-in;
+}
+
+/* About Cards - Stagger animation */
+.about-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, 
+                transform 0.5s ease-out;
+}
+
+.about-section.visible .about-card:nth-child(1) {
+    animation: fadeInUp 0.6s ease-out 0.1s forwards;
+}
+
+.about-section.visible .about-card:nth-child(2) {
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+}
+
+.about-section.visible .about-card:nth-child(3) {
+    animation: fadeInUp 0.6s ease-out 0.3s forwards;
+}
+
+.about-section.visible .about-card:nth-child(4) {
+    animation: fadeInUp 0.6s ease-out 0.4s forwards;
+}
+
+/* ===== KEYFRAME ANIMATIONS ===== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== REDUCE MOTION FOR ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    section,
+    .hero,
+    .about-section,
+    .about-card,
+    .portfolio-section {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+    section {
+        transform: translateY(20px); /* Reduced movement on mobile */
+        transition: opacity 0.6s ease-out, 
+                    transform 0.6s ease-out;
+    }
+    
+    .about-section {
+        transform: translateY(25px);
+        transition: opacity 0.7s ease-out, 
+                    transform 0.7s ease-out;
+    }
+}
 /*=========================================
             Navbar Section (Desktop)
 ===========================================*/
@@ -215,16 +413,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: transparent;
+    background: white;
     border-radius: var(--large-padding);
     margin: var(--large-padding);
-}
-
-h1{
-    color: var(--secondary-color);
-    font-family: var(--font-family);
-    text-align: center;
-    font-size: var(--super-large);
 }
 
 .hero-content{
@@ -306,9 +497,10 @@ h1{
             About Section
 ===========================================*/
 .about-section {
-    min-height: 84vh;
+    min-height: 200vb;
     padding: var(--super-large-padding);
     margin: var(--large-padding);
+    background: #505285;
 }
 
 .about-container {
@@ -322,6 +514,23 @@ h1{
     color: var(--text-color);
     text-align: center;
 }
+.about-card{
+    background: var(--text-color);
+    display: block;
+    gap: var(--large-padding);
+    margin-top: var(--super-large-padding);
+}
+/*=========================================
+            Portfolio Section
+===========================================*/
+
+.portfolio-section {
+    min-height: 80vb;
+    background: #505285;
+    padding: var(--super-large-padding);
+    margin: var(--large-padding);
+}
+
 
 /*=========================================
             MOBILE RESPONSIVE
