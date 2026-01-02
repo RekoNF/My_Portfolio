@@ -156,3 +156,17 @@ function initializeTyped() {
         tick();
     });
 }
+
+/* =====4. ANIMATION FUNCTIONS===== */
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+            console.log(entry.target);
+            entry.target.classList.add("visible");
+        }else{
+            entry.target.classList.remove("visible");
+        }
+    })
+}, {})
+const todoElements = document.querySelectorAll("section");
+todoElements.forEach(el => observer.observe(el));

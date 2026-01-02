@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root{
-    --primary-color:#FD7014;
+    --primary-color:#222831;
     --secondary-color:#EEEEEE;
     --bg-color:#393E46;
     --text-color:#FD7014;
@@ -33,17 +33,57 @@ body.menu-open {
     overflow: hidden;
 }
 
+section{
+    opacity: 0;
+    transition: 600ms ease;
+}
+section.visible{
+    opacity: 1;
+}
+
+/*=========================================
+                key frames
+===========================================*/
+@keyframes appear{
+    from{
+        opacity: 0;
+        scale: 0.5;
+    }
+    to{
+        opacity : 1;
+        scale: 1;
+    }
+}
+/*  animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+    */
+@keyframes autro{
+    from{
+        opacity: 1;
+        scale: 1;
+    }
+    to{
+        opacity : 0;
+        scale: 0.5;
+    }
+/*  animation: outro linear;
+    animation-timeline: view();
+    animation-range: entry 0;
+    */
+}
+
 /*=========================================
             Navbar Section (Desktop)
 ===========================================*/
 header {
-    margin: var(--large-padding);
+    margin: 0;
     padding: var(--small-padding);
     position: sticky;
     top: 0;
     z-index: 2200;
-    background-color: var(--bg-color); 
-    border-radius: 24px;
+    background-color: var(--primary-color); 
+    border-radius: 0;
 }
 .navbar-container{
     display: flex;
@@ -266,7 +306,7 @@ h1{
             About Section
 ===========================================*/
 .about-section {
-    min-height: 100vh;
+    min-height: 84vh;
     padding: var(--super-large-padding);
     margin: var(--large-padding);
 }
